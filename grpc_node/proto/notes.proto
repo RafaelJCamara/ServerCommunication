@@ -1,0 +1,52 @@
+// API & Service description
+syntax = "proto3";
+
+/*
+    Services
+*/
+
+service NoteService{
+    rpc List (Void) returns (NoteListResponse);
+    rpc Find (NoteFindRequest) returns (NoteFindResponse);
+    rpc AddNote (NoteAddRequest) returns (NoteAddResponse);
+}
+
+/*
+    Entities
+*/
+
+message Void {}
+
+message Note{
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+}
+
+/*
+    Request
+*/
+
+message NoteFindRequest{
+    int32 id = 1;
+}
+
+message NoteAddRequest{
+    Note note = 1;
+}
+
+/*
+    Response
+*/
+
+message NoteFindResponse{
+    Note note = 1;
+}
+
+message NoteListResponse{
+    repeated Note note = 1;
+}
+
+message NoteAddResponse{
+    string responseMessage = 1;
+}
