@@ -9,6 +9,8 @@ service NoteService{
     rpc List (Void) returns (NoteListResponse);
     rpc Find (NoteFindRequest) returns (NoteFindResponse);
     rpc AddNote (NoteAddRequest) returns (NoteAddResponse);
+    rpc ListStream (Void) returns (stream NoteFindResponse);
+    rpc AddNoteStream (stream NoteAddRequest) returns (NoteAddResponseStream);
 }
 
 /*
@@ -49,4 +51,9 @@ message NoteListResponse{
 
 message NoteAddResponse{
     string responseMessage = 1;
+}
+
+message NoteAddResponseStream{
+    string responseMessage = 1;
+    repeated Note note = 2;
 }

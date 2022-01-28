@@ -23,6 +23,31 @@ client.AddNote({ note:{id: 3, title:"Third note", description: "The third note"}
     return console.log(responseMessage)
   })
 
+/*Server stream calls*/
+let streamCall = client.ListStream({});
+streamCall.on('data',function(response){
+  console.log(response);
+});
+
+streamCall.on('end',function(){
+  console.log('All Notes have been sent.');
+});
+
+/*Client stream calls*/
+let clientStreamCall = client.AddNoteStream((err, response)=>{
+    if(err) return console.error(err.details);
+    console.log(`Message received from the server:\n ${response.responseMessage}`);
+});
+
+for(let i=1;i!=5;i++){
+    clientStreamCall.write({note:{
+        id:i,
+        title:`Title number ${i}`,
+        description: `Description number ${i}`
+    }});
+}
+clientStreamCall.end();
+
 client.list({}, (err, notes) => {
 if (err) throw err
 console.log(notes)
