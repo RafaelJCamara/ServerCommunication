@@ -52,8 +52,17 @@ function AddNoteStream(call, callback){
   console.log("Received a request to add notes as from a client stream.");
   console.log("*********")
   call.on('data',function(note){
-    console.log(`Received: ${note.note}`)
-    notes.push(note.note);
+    console.log("################")
+    console.log("Added:")
+    console.log(note.note.id)
+    console.log(note.note.title)
+    console.log(note.note.description)
+    console.log("################")
+    notes.push({
+      id:note.note.id,
+      title:note.note.title,
+      description:note.note.description
+    });
   });
   
   call.on('end',function(){

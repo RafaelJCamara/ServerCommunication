@@ -37,6 +37,7 @@ streamCall.on('end',function(){
 let clientStreamCall = client.AddNoteStream((err, response)=>{
     if(err) return console.error(err.details);
     console.log(`Message received from the server:\n ${response.responseMessage}`);
+    console.log(`Final list length:\n ${response.note.length}`);
 });
 
 for(let i=1;i!=5;i++){
@@ -47,8 +48,3 @@ for(let i=1;i!=5;i++){
     }});
 }
 clientStreamCall.end();
-
-client.list({}, (err, notes) => {
-if (err) throw err
-console.log(notes)
-})
